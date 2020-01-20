@@ -23,7 +23,7 @@ router.post('/add-city', function(req, res, next) {
   console.log("index de la ville:", findCity);
 
   
-  if(findCity === -1) { 
+  if(findCity === -1 && req.body.city !== "") { 
     cityList.push(
     {
       ville: req.body.city,
