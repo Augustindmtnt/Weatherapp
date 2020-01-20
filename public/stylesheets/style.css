@@ -1,8 +1,19 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-a {
-  color: #00B7FF;
+#delete {
+  width: 20px;
 }
+
+.villes {
+  border: 1px lightgrey solid;
+  padding: 20px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+
