@@ -1,3 +1,21 @@
+body {
+
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.form-group {
+  display: flex;
+}
+#formGroupExampleInput {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+
+}
+
+.btn {
+  width: 120px;
+}
+
 .center {
   display: flex;
   flex-direction: row;
@@ -17,3 +35,14 @@
 }
 
 
+.navbar {
+  background-color:#333300;
+}
+
+#logo {
+  color: white;
+}
+
+#deco {
+  color:#3366ff;
+}

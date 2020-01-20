@@ -5,31 +5,30 @@
     <% include header %>
   </head>
   <body>
-    <div class="container">
+    
       <nav class="navbar">
           <div class="home">
-            <a href="">Weather App</a>
+            <a id="logo" href="">Weather App</a>
           </div>
-          <a href="">Déconnexion</a>
+          <a id="deco" href="">Déconnexion</a>
       </nav>
-  </div>
-
     <div class="container">
-
       <div class= "row">
         <div class="col-0 col-lg-6">
         </div>
+
         <div class="col-12 col-lg-6">
-          <form action="add-city" method="POST">
             <div class="form-group">
               <input type="text" name="city" class="form-control" id="formGroupExampleInput" placeholder="Enter city name">
-              <div class="center"><button type="submit" class="btn btn-primary">Add city</button></div>
+              <button type="submit" class="btn btn-primary">Add city</button>
             </div>
           </form>
         </div>
+
         <div class="col-12 col-lg-6">
           <img class="img-fluid" src="/images/map.png" alt="">
         </div>
+
         <% if(cityList.length>0) {%>
         <div class="col-12 col-lg-6">
           <div>Update cities <img src="" alt=""></div>
