@@ -7,6 +7,17 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var session = require("express-session");
+
+
+app.use(
+  session({ 
+  secret: 'a4f8071f-c873-4447-8ee2',
+  resave: false,
+  saveUninitialized: false,
+  })
+  );
+  
 var app = express();
 
 // view engine setup

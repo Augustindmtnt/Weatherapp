@@ -1,19 +1,23 @@
 body {
 
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-.form-group {
+
+.add-city {
   display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 40px 0;
 }
-#formGroupExampleInput {
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
 
+.form-control {
+  width: 75%;
 }
 
 .btn {
-  width: 120px;
+  width: 25%;
 }
 
 .center {
@@ -26,23 +30,32 @@ body {
   width: 20px;
 }
 
+.picto {
+  width: 40px;
+}
+
+#update {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+#refresh {
+  width: 15px;
+  margin-left:5px;
+}
+
 .villes {
   border: 1px lightgrey solid;
-  padding: 20px 0;
+  padding: 20px 5px;
   border-radius: 5px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: -1px;
+  align-items: center;
 }
 
 
-.navbar {
-  background-color:#333300;
-}
 
-#logo {
-  color: white;
-}
 
-#deco {
-  color:#3366ff;
-}

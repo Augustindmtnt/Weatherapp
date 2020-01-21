@@ -6,11 +6,9 @@
   </head>
   <body>
     
-      <nav class="navbar">
-          <div class="home">
-            <a id="logo" href="">Weather App</a>
-          </div>
-          <a id="deco" href="">Déconnexion</a>
+      <nav class="header navbar navbar-light bg-dark">
+          Weather App
+          <a href="/login" class="logout">Déconnexion</a>
       </nav>
     <div class="container">
       <div class= "row">
@@ -18,10 +16,9 @@
         </div>
 
         <div class="col-12 col-lg-6">
-            <div class="form-group">
+          <form action="/add-city" method="POST" class="add-city">
               <input type="text" name="city" class="form-control" id="formGroupExampleInput" placeholder="Enter city name">
               <button type="submit" class="btn btn-primary">Add city</button>
-            </div>
           </form>
         </div>
 
@@ -31,14 +28,14 @@
 
         <% if(cityList.length>0) {%>
         <div class="col-12 col-lg-6">
-          <div>Update cities <img src="" alt=""></div>
+          <div id="update" >Update cities<img src="/images/refresh.png" id="refresh" alt=""></div>
           <% for(i=0 ; i<cityList.length ; i++) { %>
 
           <div class="villes">
             <span><%=cityList[i].ville%></span>
             <span class="temp">
               <span><%=cityList[i].temps%></span>
-              <img src=<%=cityList[i].picto%> alt="nuageux">
+              <img class="picto" src=<%=cityList[i].picto%> alt="nuageux">
               <span class="badge badge-warning"><%=cityList[i].temp_max%>°c</span>
               <span class="badge badge-info"><%=cityList[i].temp_min%>°c</span>
             </span>
