@@ -7,19 +7,22 @@
   <body>
     
       <nav class="header navbar navbar-light bg-dark">
-          Weather App
+          <img src="/images/sunny.png">
           <a href="/login" class="logout">Déconnexion</a>
       </nav>
     <div class="container">
       <div class= "row">
-        <div class="col-0 col-lg-6">
-        </div>
 
-        <div class="col-12 col-lg-6">
-          <form action="/add-city" method="POST" class="add-city">
+        <div class="col-12 add-city">
+          <form action="/add-city" method="POST" class="formcity">
               <input type="text" name="city" class="form-control" id="formGroupExampleInput" placeholder="Enter city name">
               <button type="submit" class="btn btn-primary">Add city</button>
           </form>
+          <% if(errMsg !== null) { %>
+          <p id="err-msg">
+               <%=errMsg%>
+          </p>
+          <%}%>
         </div>
 
         <div class="col-12 col-lg-6">

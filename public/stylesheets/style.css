@@ -5,19 +5,26 @@ body {
 }
 
 
-.add-city {
+.formcity {
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 40px 0;
+}
+
+.add-city {
+  margin: 50px 0;
 }
 
 .form-control {
-  width: 75%;
+  width: 80%;
 }
 
 .btn {
-  width: 25%;
+  width: 20%;
+}
+
+.err-msg {
+  margin-left: 10px;
 }
 
 .center {
@@ -34,11 +41,15 @@ body {
   width: 40px;
 }
 
+.img-fluid {
+  margin-bottom: 15px;
+}
+
 #update {
   display: flex;
   justify-content: center;
   font-weight: bold;
-  margin: 15px 0;
+  margin-bottom: 15px;
 }
 
 #refresh {

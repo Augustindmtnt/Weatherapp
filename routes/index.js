@@ -4,11 +4,12 @@ var request = require('sync-request');
 
 /* météo data */
 
-var cityList = []
+var cityList = [];
+var errMsg = null;
 
 /* GET home page. */
 router.get('/weather', function(req, res, next) {
-  res.render('index', { cityList });
+  res.render('index', { cityList, errMsg });
 });
 
 /* GET login page. */
@@ -22,6 +23,9 @@ router.post('/add-city', function(req, res, next) {
 
   /* Appel de l'API pour receuillir les informations météo de la ville saisie */
   try {
+
+  var errMsg = null;
+
   var resp = request("GET", `https://api.openweathermap.org/data/2.5/weather?q=${req.body.city}&units=metric&lang=fr&APPID=a512ea6e86a6184fab6c416f00248b27`);
 
   var respJSON = JSON.parse(resp.getBody());
@@ -47,10 +51,13 @@ router.post('/add-city', function(req, res, next) {
   }
 
   } catch (err) {
-    console.log(err)
+    console.log(err);
+    if(err.statusCode = "404") {
+      errMsg = "Oups ! le nom de la ville que vous avez saisi n'existe pas. Essayez à nouveau :)";
+    }
   }
 
-  res.render('index', { cityList });
+  res.render('index', { cityList, errMsg });
 });
 
 /* Delete city */
