@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var request = require('sync-request');
+var cityModel = require("../models/cities");
 
 /* météo data */
 
-var cityList = [];
 var errMsg = null;
 
 /* GET home page. */
-router.get('/weather', function(req, res, next) {
+router.get('/weather', async function(req, res, next) {
+  var cityList = await cityModel.find();
+  console.log(cityList)
   res.render('index', { cityList, errMsg });
 });
 
@@ -18,7 +20,7 @@ router.get('/login', function(req, res, next) {
 });
 
 /* Add city */
-router.post('/add-city', function(req, res, next) {
+router.post('/add-city', async function(req, res, next) {
 
 
   /* Appel de l'API pour receuillir les informations météo de la ville saisie */
@@ -30,7 +32,9 @@ router.post('/add-city', function(req, res, next) {
 
   var respJSON = JSON.parse(resp.getBody());
 
-  /* Push des informations météo de la ville dans le tableau (si la ville n'a pas déjà été entrée et si la requête n'est pas vide) */
+  /* Push des informations météo de la ville dans la DB (si la ville n'a pas déjà été entrée et si la requête n'est pas vide) */
+
+  var cityList = await cityModel.find();
 
   var findCity = cityList.findIndex(element => element.ville.toLowerCase() === req.body.city.toLowerCase());
   
@@ -38,17 +42,20 @@ router.post('/add-city', function(req, res, next) {
 
   
   if(findCity === -1 && req.body.city !== "") { 
-    cityList.push(
+    var newCity = new cityModel(
     {
       ville: respJSON.name,
+      id: respJSON.id,
       temps : respJSON.weather[0].description,
       picto : `http://openweathermap.org/img/wn/${respJSON.weather[0].icon}@2x.png`,
       temp_max : respJSON.main.temp_max,
       temp_min : respJSON.main.temp_min,
       delete : "/images/delete.png"
+    });
+    var createCity = await newCity.save();
+
+    console.log(createCity);
     }
-  )
-  }
 
   } catch (err) {
     console.log(err);
@@ -57,19 +64,68 @@ router.post('/add-city', function(req, res, next) {
     }
   }
 
+  var cityList = await cityModel.find();
+
   res.render('index', { cityList, errMsg });
 });
 
 /* Delete city */
 
-router.get('/delete-city', function(req, res, next) {
+router.get('/delete-city', async function(req, res, next) {
 
-  console.log(req.query)
+  var errMsg = null;
 
-  cityList.splice(req.query.position, 1)
+  console.log(req.query);
 
-  res.render('index', { cityList });
+  await cityModel.deleteOne(
+    {ville: req.query.name}
+  );
+
+  var cityList = await cityModel.find();
+
+  res.render('index', { cityList, errMsg });
 
 });
 
 module.exports = router;
+
+/* Update weather info */
+
+router.get('/update', async function (req, res, next) {
+
+  var cityList = await cityModel.find();
+
+  var ids=[];
+
+  for(i=0;i<cityList.length; i++) {
+    ids.push(cityList[i].id);
+  }
+
+
+  console.log(ids);
+
+  var resp = request("GET", `https://api.openweathermap.org/data/2.5/group?id=${ids},&units=metric&lang=fr&APPID=a512ea6e86a6184fab6c416f00248b27`);
+
+  var respJSON = JSON.parse(resp.getBody());
+
+  console.log(respJSON);
+
+
+  for(i=0;i<cityList.length;i++) {
+    await cityModel.updateOne(
+      {id: cityList[i].id},
+      {temps : respJSON.list[i].weather[0].description,
+      picto : `http://openweathermap.org/img/wn/${respJSON.list[i].weather[0].icon}@2x.png`,
+      temp_max : respJSON.list[i].main.temp_max,
+      temp_min : respJSON.list[i].main.temp_min}
+      
+      )
+  }
+
+  var cityList = await cityModel.find();
+
+
+  res.render('index', { cityList, errMsg });
+
+
+});

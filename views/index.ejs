@@ -31,7 +31,7 @@
 
         <% if(cityList.length>0) {%>
         <div class="col-12 col-lg-6">
-          <div id="update" >Update cities<img src="/images/refresh.png" id="refresh" alt=""></div>
+          <a id="update" href="/update">Update cities<img src="/images/refresh.png" id="refresh" alt=""></a>
           <% for(i=0 ; i<cityList.length ; i++) { %>
 
           <div class="villes">
@@ -42,7 +42,7 @@
               <span class="badge badge-warning"><%=cityList[i].temp_max%>°c</span>
               <span class="badge badge-info"><%=cityList[i].temp_min%>°c</span>
             </span>
-            <span><a href="/delete-city?position=<%=i %>"> <img id="delete" src=<%=cityList[i].delete%> alt="delete"></a></span>
+            <span><a href="/delete-city?name=<%=cityList[i].ville %>"> <img id="delete" src="/images/delete.png" alt="delete"></a></span>
           </div>
 
           <%
